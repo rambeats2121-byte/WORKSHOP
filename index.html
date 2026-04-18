@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>VFX Workshop Feedback</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top, #0a0a0a, #000);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff2e2e;
+      text-shadow: 0 0 20px red;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 25px rgba(255,0,0,0.4);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 5px 10px;
+      margin: 5px;
+      border: 1px solid red;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #ff4d4d;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      background: #111;
+      color: white;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background: #111;
+      color: white;
+      border-radius: 8px;
+      border: none;
+    }
+
+    .stars span {
+      font-size: 28px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .stars span:hover {
+      color: gold;
+      transform: scale(1.2);
+    }
+
+    .active {
+      color: gold;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(45deg, red, orange);
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px red;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>AI FILMMAKING & VFX FEEDBACK</h1>
+
+  <!-- VFX TAGS -->
+  <div class="card">
+    <div class="tag">Compositing</div>
+    <div class="tag">Rendering</div>
+    <div class="tag">FX Simulation</div>
+    <div class="tag">AI Filmmaking</div>
+    <div class="tag">Color Grading</div>
+  </div>
+
+  <!-- SPEAKER INFO -->
+  <div class="card">
+    <h2>👨‍🏫 Featuring Vijay — VFX Supervisor</h2>
+    <p>Worked on global blockbuster projects.</p>
+
+    <h3>⚡ Ram Karan — VFX Artist</h3>
+    <p>47M+ audience • AI filmmaking innovator</p>
+  </div>
+
+  <!-- FORM -->
+  <div class="card">
+    <h2>🎬 Your Feedback</h2>
+
+    <input type="text" id="name" placeholder="Enter your name">
+
+    <select id="faculty">
+      <option value="">Your Batch Faculty</option>
+      <option>Ramkaran</option>
+      <option>Anupam</option>
+      <option>Jaydeep</option>
+    </select>
+
+    <!-- INTERACTIVE STARS -->
+    <div class="stars" id="stars">
+      <span onclick="rate(1)">★</span>
+      <span onclick="rate(2)">★</span>
+      <span onclick="rate(3)">★</span>
+      <span onclick="rate(4)">★</span>
+      <span onclick="rate(5)">★</span>
+    </div>
+
+    <textarea id="feedback" placeholder="Your creative feedback..."></textarea>
+
+    <button onclick="submitData()">🚀 Submit Feedback</button>
+  </div>
+
+</div>
+
+<script>
+let selectedRating = 0;
+
+function rate(num) {
+  selectedRating = num;
+  let stars = document.querySelectorAll("#stars span");
+
+  stars.forEach((star, index) => {
+    star.classList.toggle("active", index < num);
+  });
+}
+
+function submitData() {
+  const data = {
+    name: document.getElementById("name").value,
+    faculty: document.getElementById("faculty").value,
+    rating: selectedRating,
+    feedback: document.getElementById("feedback").value
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbx_B6OwIqux6wQBw56KkYGXlMtD7ycG9z6oIgrfKP8EUO7l6slMfnJ_JTn-DOHu_zyb/exec", {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+  .then(() => alert("🔥 Feedback Submitted"))
+  .catch(() => alert("❌ Error"));
+}
+</script>
+
+</body>
+</html>
